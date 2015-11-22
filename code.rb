@@ -26,3 +26,9 @@ CSV.foreach('ingredients.csv') do |row|
   ingredient = row.to_a
   array_of_array << ingredient
 end
+
+array_of_array.each do |array|
+  db_connection do |conn|
+    conn.exec("INSERT INTO ingredient (id, food) VALUES (#{array[0]}, '#{array[1]}');")
+  end
+end
